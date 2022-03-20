@@ -43,9 +43,12 @@ class RemoteFeedLoaderTests: XCTestCase {
 
     func test_load_deliversErrorOnClientError() {
         // Arrange
+        // Build a client (HTTPClientSpy), a RemoteFeedLoader (the SUT) (using the client)
+        // The client we make is an HTTPClientSpy
         let (sut, client) = makeSUT()
 
         // Act
+        // Calling load on the RFL causes the client's get method to be called
         var capturedErrors = [RemoteFeedLoader.Error]()
         sut.load { capturedErrors.append($0) }
 
@@ -66,16 +69,18 @@ class RemoteFeedLoaderTests: XCTestCase {
     }
 
     private class HTTPClientSpy: HTTPClient {
-        var requestedURLs = [URL]()
-        var completions = [(Error) -> Void]()
+        var requestedURLs: [URL] {
+            messages.map { $0.url }
+        }
+
+        var messages = [(url: URL, completion: (Error) -> Void)]()
 
         func get(from url: URL, completion: @escaping (Error) -> Void) {
-            completions.append(completion)
-            requestedURLs.append(url)
+            messages.append((url, completion))
         }
 
         func complete(with error: Error, index: Int = 0) {
-            completions[index](error)
+            messages[index].completion(error)
         }
     }
 }
