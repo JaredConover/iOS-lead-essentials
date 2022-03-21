@@ -65,24 +65,20 @@ class RemoteFeedLoaderTests: XCTestCase {
         // Build a client (HTTPClientSpy), a RemoteFeedLoader (the SUT) (using the client)
         // The client we make is an HTTPClientSpy
         let (sut, client) = makeSUT()
+        let samples = [199, 201, 300, 400, 500]
 
         // Act
         // Calling load on the RFL causes the client's get method to be called
-
-
-        let samples = [199, 201, 300, 400, 500]
-        // Simulating the client completing with a status code
         samples.enumerated().forEach { index, code in
 
             var capturedErrors = [RemoteFeedLoader.Error]()
             sut.load { capturedErrors.append($0) }
 
+            // Simulating the client completing with a status code
             client.complete(withStatusCode: code, at: index)
 
             XCTAssertEqual(capturedErrors, [.invalidData])
         }
-
-
     }
 
     // MARK: - Helpers
@@ -94,17 +90,17 @@ class RemoteFeedLoaderTests: XCTestCase {
     }
 
     private class HTTPClientSpy: HTTPClient {
-        var messages = [(url: URL, completion: (Error?, HTTPURLResponse?) -> Void)]()
+        var messages = [(url: URL, completion: (HTTPClientResult) -> Void)]()
         var requestedURLs: [URL] {
             messages.map { $0.url }
         }
 
-        func get(from url: URL, completion: @escaping (Error?, HTTPURLResponse?) -> Void) {
+        func get(from url: URL, completion: @escaping (HTTPClientResult) -> Void) {
             messages.append((url, completion))
         }
 
         func complete(with error: Error, index: Int = 0) {
-            messages[index].completion(error, nil)
+            messages[index].completion(.failure(error))
         }
 
         func complete(withStatusCode code: Int, at index: Int = 0 ) {
@@ -113,9 +109,9 @@ class RemoteFeedLoaderTests: XCTestCase {
                 statusCode: code,
                 httpVersion: nil,
                 headerFields: nil
-            )
+            )!
 
-            messages[index].completion(nil, response)
+            messages[index].completion(.success(response))
         }
     }
 }
