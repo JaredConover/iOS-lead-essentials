@@ -68,13 +68,20 @@ class RemoteFeedLoaderTests: XCTestCase {
 
         // Act
         // Calling load on the RFL causes the client's get method to be called
-        var capturedErrors = [RemoteFeedLoader.Error]()
-        sut.load { capturedErrors.append($0) }
 
+
+        let samples = [199, 201, 300, 400, 500]
         // Simulating the client completing with a status code
-        client.complete(withStatusCode: 400)
+        samples.enumerated().forEach { index, code in
 
-        XCTAssertEqual(capturedErrors, [.invalidData])
+            var capturedErrors = [RemoteFeedLoader.Error]()
+            sut.load { capturedErrors.append($0) }
+
+            client.complete(withStatusCode: code, at: index)
+
+            XCTAssertEqual(capturedErrors, [.invalidData])
+        }
+
 
     }
 
