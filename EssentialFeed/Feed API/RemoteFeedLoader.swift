@@ -7,14 +7,18 @@
 
 import Foundation
 
+// MARK: - HTTPClient
+
 public enum HTTPClientResult {
-    case success(Data, HTTPURLResponse)
-    case failure(Error)
+    case httpClientSuccess(Data, HTTPURLResponse)
+    case httpClientFailure(Error)
 }
 
 public protocol HTTPClient {
-    func get(from url: URL, completion: @escaping (HTTPClientResult) -> Void)
+    func get(from url: URL, httpClientCompletion: @escaping (HTTPClientResult) -> Void)
 }
+
+// MARK: - RemoteFeedLoader
 
 public final class RemoteFeedLoader {
     private let url: URL
@@ -26,8 +30,8 @@ public final class RemoteFeedLoader {
     }
 
     public enum Result: Equatable {
-        case success([FeedItem])
-        case failure(Error)
+        case loadFeedSuccess([FeedItem])
+        case loadFeedFailure(Error)
     }
 
     public init(url: URL, client: HTTPClient) {
@@ -35,15 +39,22 @@ public final class RemoteFeedLoader {
         self.url = url
     }
 
-    public func load(completion: @escaping (Result) -> Void) {
-        client.get(from: url, completion: { result in
-            switch result {
-            case .success: completion(.failure(.invalidData))
-            case .failure: completion(.failure(.connectivity))
+    public func load(loadFeedCompletion: @escaping (Result) -> Void) {
+
+        // Prepare the completion block that will be passed to the httpClient
+        let httpCompletion: (HTTPClientResult) -> Void = { httpClientResult in
+            switch httpClientResult {
+            case let .httpClientSuccess(data, _):
+                // here we do a basic test to see if the json is valid
+                if let _ = try? JSONSerialization.jsonObject(with: data) {
+                    loadFeedCompletion(.loadFeedSuccess([]))
+                } else {
+                    loadFeedCompletion(.loadFeedFailure(.invalidData))
+                }
+            case .httpClientFailure: loadFeedCompletion(.loadFeedFailure(.connectivity))
             }
-        })
+        }
+
+        client.get(from: url, httpClientCompletion: httpCompletion)
     }
 }
-
-//9B15M085
-//~ 7:28

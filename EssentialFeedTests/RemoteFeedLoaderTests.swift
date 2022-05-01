@@ -14,7 +14,6 @@ class RemoteFeedLoaderTests: XCTestCase {
     func test_init_doesNotRequestDataFromURL() {
         let (_, client) = makeSUT()
 
-//        XCTAssertNil(client.requestedURL)
         XCTAssertTrue(client.requestedURLs.isEmpty)
     }
 
@@ -79,6 +78,18 @@ class RemoteFeedLoaderTests: XCTestCase {
         })
     }
 
+    func test_load_deliversNoItemsOn200HTTPResponseWithEmptyJSONList() {
+        let (sut, client) = makeSUT()
+
+        var capturedResults = [RemoteFeedLoader.Result]()
+        sut.load { capturedResults.append($0) }
+
+        let emptyListJSON = Data(bytes: "{\"items\": []}".utf8)
+        client.complete(withStatusCode: 200, data: emptyListJSON)
+
+        XCTAssertEqual(capturedResults, [.loadFeedSuccess([])])
+
+    }
 
     // MARK: - Helpers
 
@@ -95,7 +106,7 @@ class RemoteFeedLoaderTests: XCTestCase {
 
         action()
 
-        XCTAssertEqual(capturedResults, [.failure(error)], file: file, line: line)
+        XCTAssertEqual(capturedResults, [.loadFeedFailure(error)], file: file, line: line)
     }
 
     private class HTTPClientSpy: HTTPClient {
@@ -104,12 +115,12 @@ class RemoteFeedLoaderTests: XCTestCase {
             messages.map { $0.url }
         }
 
-        func get(from url: URL, completion: @escaping (HTTPClientResult) -> Void) {
-            messages.append((url, completion))
+        func get(from url: URL, httpClientCompletion: @escaping (HTTPClientResult) -> Void) {
+            messages.append((url, httpClientCompletion))
         }
 
         func complete(with error: Error, index: Int = 0) {
-            messages[index].completion(.failure(error))
+            messages[index].completion(.httpClientFailure(error))
         }
 
         func complete(withStatusCode code: Int, data: Data = Data(), at index: Int = 0 ) {
@@ -120,7 +131,7 @@ class RemoteFeedLoaderTests: XCTestCase {
                 headerFields: nil
             )!
 
-            messages[index].completion(.success(data, response))
+            messages[index].completion(.httpClientSuccess(data, response))
         }
     }
 }
