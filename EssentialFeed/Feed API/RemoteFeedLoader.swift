@@ -45,9 +45,9 @@ public final class RemoteFeedLoader {
         let httpCompletion: (HTTPClientResult) -> Void = { httpClientResult in
             switch httpClientResult {
             case let .httpClientSuccess(data, _):
-                // here we do a basic test to see if the json is valid
-                if let _ = try? JSONSerialization.jsonObject(with: data) {
-                    loadFeedCompletion(.loadFeedSuccess([]))
+
+                if let root = try? JSONDecoder().decode(Root.self, from: data) {
+                    loadFeedCompletion(.loadFeedSuccess(root.items))
                 } else {
                     loadFeedCompletion(.loadFeedFailure(.invalidData))
                 }
@@ -59,4 +59,8 @@ public final class RemoteFeedLoader {
     }
 }
 
-// 14:31
+struct Root: Decodable {
+    let items : [FeedItem]
+}
+
+// 22:23
