@@ -44,8 +44,8 @@ public final class RemoteFeedLoader {
         // Prepare the completion block that will be passed to the httpClient
         let httpCompletion: (HTTPClientResult) -> Void = { httpClientResult in
             switch httpClientResult {
-            case let .httpClientSuccess(data, _):
-                if let root = try? JSONDecoder().decode(Root.self, from: data) {
+            case let .httpClientSuccess(data, response):
+                if response.statusCode == 200, let root = try? JSONDecoder().decode(Root.self, from: data) {
                     loadFeedCompletion(.loadFeedSuccess(root.items))
                 } else {
                     loadFeedCompletion(.loadFeedFailure(.invalidData))
@@ -62,4 +62,4 @@ struct Root: Decodable {
     let items : [FeedItem]
 }
 
-// 22:23
+// 27:55
