@@ -45,7 +45,6 @@ public final class RemoteFeedLoader {
         let httpCompletion: (HTTPClientResult) -> Void = { httpClientResult in
             switch httpClientResult {
             case let .httpClientSuccess(data, _):
-
                 if let root = try? JSONDecoder().decode(Root.self, from: data) {
                     loadFeedCompletion(.loadFeedSuccess(root.items))
                 } else {
