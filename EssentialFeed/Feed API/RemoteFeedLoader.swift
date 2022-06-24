@@ -66,8 +66,8 @@ private class FeedItemsMapper {
         let items : [APIItem]
     }
 
-    // We create an API specific item so that impmlentation details from the api don't leak into the higher level abstractions ie: having to specify the key path for imageURL = "image" in the FeedItem. This way the FeedItem has no knowledge of the API
-    // A Classicist TDD Approach.. 32:50
+    /// We create an API specific item so that impmlentation details from the api don't leak into the higher level abstractions ie: having to specify the key path for imageURL = "image" in the FeedItem. This way the FeedItem has no knowledge of the API
+    /// A Classicist TDD Approach.. 32:50
     struct APIItem: Decodable {
         let id: UUID
         let description: String?
@@ -88,8 +88,6 @@ private class FeedItemsMapper {
         let root = try JSONDecoder().decode(Root.self, from: data)
         return root.items.map { $0.feedItem }
     }
-
-
 }
 
 
