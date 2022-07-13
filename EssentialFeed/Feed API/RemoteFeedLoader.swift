@@ -7,10 +7,6 @@
 
 import Foundation
 
-
-
-// MARK: - RemoteFeedLoader
-
 public final class RemoteFeedLoader {
     private let url: URL
     private let client: HTTPClient
@@ -31,21 +27,13 @@ public final class RemoteFeedLoader {
     }
 
     public func load(loadFeedCompletion: @escaping (Result) -> Void) {
-
-        // Prepare the completion block that will be passed to the httpClient
-        let httpCompletion: (HTTPClientResult) -> Void = { httpClientResult in
+        client.get(from: url) { httpClientResult in
             switch httpClientResult {
             case let .httpClientSuccess(data, response):
-                do {
-                    let items = try FeedItemsMapper.map(data, response)
-                    loadFeedCompletion(.loadFeedSuccess(items))
-                } catch {
-                    loadFeedCompletion(.loadFeedFailure(.invalidData))
-                }
-            case .httpClientFailure: loadFeedCompletion(.loadFeedFailure(.connectivity))
+                loadFeedCompletion(FeedItemsMapper.map(data, from: response))
+            case .httpClientFailure:
+                loadFeedCompletion(.loadFeedFailure(.connectivity))
             }
         }
-
-        client.get(from: url, httpClientCompletion: httpCompletion)
     }
 }

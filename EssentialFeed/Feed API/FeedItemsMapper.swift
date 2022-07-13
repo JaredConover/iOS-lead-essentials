@@ -11,6 +11,10 @@ internal final class FeedItemsMapper {
     // This represents the root of the JSON object we receive from the api
     struct Root: Decodable {
         let items : [APIItem]
+
+        var feed: [FeedItem] {
+            return items.map { $0.feedItem }
+        }
     }
 
     /// We create an API specific item so that impmlentation details from the api don't leak into the higher level abstractions ie: having to specify the key path for imageURL = "image" in the FeedItem. This way the FeedItem has no knowledge of the API
@@ -28,11 +32,12 @@ internal final class FeedItemsMapper {
 
     private static var OK_200: Int { return 200 }
 
-    internal static func map(_ data: Data, _ response: HTTPURLResponse) throws -> [FeedItem] {
-        guard response.statusCode == OK_200 else {
-            throw RemoteFeedLoader.Error.invalidData
+    internal static func map(_ data: Data, from response: HTTPURLResponse) -> RemoteFeedLoader.Result {
+        guard response.statusCode == OK_200,
+        let root = try? JSONDecoder().decode(Root.self, from: data) else {
+            return .loadFeedFailure(.invalidData)
         }
-        let root = try JSONDecoder().decode(Root.self, from: data)
-        return root.items.map { $0.feedItem }
+
+        return .loadFeedSuccess(root.feed)
     }
 }
