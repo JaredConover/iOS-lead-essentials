@@ -1,10 +1,3 @@
-//
-//  RemoteFeedLoader.swift
-//  EssentialFeed
-//
-//  Created by Jared Conover on 2022-03-11.
-//
-
 import Foundation
 
 public final class RemoteFeedLoader: FeedLoader {
@@ -23,6 +16,7 @@ public final class RemoteFeedLoader: FeedLoader {
         self.url = url
     }
 
+    // The implementation/conformance to FeedLoader protocol
     public func load(completion loadFeedCompletion: @escaping (Result) -> Void) {
         client.get(from: url) { [weak self] httpClientResult in
             guard self != nil else { return }

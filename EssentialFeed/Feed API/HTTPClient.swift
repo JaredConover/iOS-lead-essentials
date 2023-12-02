@@ -1,10 +1,3 @@
-//
-//  HTTPClient.swift
-//  EssentialFeed
-//
-//  Created by Jared Conover on 2022-07-10.
-//
-
 import Foundation
 
 public enum HTTPClientResult {

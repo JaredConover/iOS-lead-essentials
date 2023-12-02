@@ -1,10 +1,3 @@
-//
-//  RemoteFeedLoaderTests.swift
-//  EssentialFeedTests
-//
-//  Created by Jared Conover on 2022-03-04.
-//
-
 import Foundation
 import XCTest
 import EssentialFeed
