@@ -1,5 +1,6 @@
 import Foundation
 
+/// The model for the items received by the FeedLoader
 public struct FeedItem: Equatable {
     public let id: UUID
     public let description: String?
