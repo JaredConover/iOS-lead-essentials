@@ -11,9 +11,6 @@ public enum LoadFeedResult<Error: Swift.Error> {
     case failure(Error)
 }
 
-// We add  Equatable conformance to the LoadFeedResult if its Error type conforms to Equatable
-extension LoadFeedResult: Equatable where Error: Equatable {}
-
 /// This abstraction defines the functionality of a feed loader
 /// This allows for several different implementations ie: RemoteFeedLoader
 protocol FeedLoader {
