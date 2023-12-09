@@ -12,7 +12,7 @@ public enum LoadFeedResult {
 /// This abstraction defines the functionality of a feed loader
 /// This allows for several different implementations ie: RemoteFeedLoader
 protocol FeedLoader {
-    
+
     /// A type with conformance to FeedLoader must decide how it will handle a LoadFeedResult and specify what kind of Error can occur
     func load(completion: @escaping (LoadFeedResult) -> Void)
 }
