@@ -13,7 +13,31 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Self Eval.md",
+                "file": "Essential Developer/iOS Lead Essentials Notes/0014_Speeding_up_Development_by_Reducing_Debugging_Time.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "04f0a2e30a2147f4",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "iOS Learning/iOS project overview.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "3f2f7ab01995f2f3",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Eddie 1-1.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +109,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Self Eval.md",
+                "file": "Essential Developer/iOS Lead Essentials Notes/0014_Speeding_up_Development_by_Reducing_Debugging_Time.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +126,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Self Eval.md",
+                "file": "Essential Developer/iOS Lead Essentials Notes/0014_Speeding_up_Development_by_Reducing_Debugging_Time.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +149,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Self Eval.md"
+                "file": "Essential Developer/iOS Lead Essentials Notes/0014_Speeding_up_Development_by_Reducing_Debugging_Time.md"
               }
             }
           }
@@ -148,9 +172,11 @@
   },
   "active": "61142cb67ddac9bb",
   "lastOpenFiles": [
+    "iOS Learning/iOS project overview.md",
+    "Self Eval.md",
+    "Eddie 1-1.md",
     "Nav optimizations to figure out.md",
     "Random thoughts.md",
-    "Self Eval.md",
     "Essential Developer/iOS Lead Essentials Notes/0013_Four_Approaches_to_Test_Drive_Network_Requests_End_to_End_Subclass.md",
     "Essential Developer/iOS Lead Essentials Notes/0014_Speeding_up_Development_by_Reducing_Debugging_Time.md",
     "iOS Learning/SwiftUI Fundamentals.md",

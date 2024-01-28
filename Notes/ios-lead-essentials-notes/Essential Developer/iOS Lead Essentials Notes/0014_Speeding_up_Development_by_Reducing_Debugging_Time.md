@@ -9,4 +9,7 @@ To fix this:
 - intercept all requests 
 - add a specific test that checks the correct url was passed 
 
+Point: we can override the `setUP` and `tearDown` method of `XCTestCase` which will be called before every test.
+
+In our case here since we are calling static methods on our `URLProtocolStub` to start and stop request interception, we will call those methods in the setup and teardown of our `XCTestCase` instead of manually before and after every test.
 
