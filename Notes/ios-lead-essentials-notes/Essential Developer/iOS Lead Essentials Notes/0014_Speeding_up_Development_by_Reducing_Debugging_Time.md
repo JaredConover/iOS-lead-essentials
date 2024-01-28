@@ -13,3 +13,16 @@ Point: we can override the `setUP` and `tearDown` method of `XCTestCase` which w
 
 In our case here since we are calling static methods on our `URLProtocolStub` to start and stop request interception, we will call those methods in the setup and teardown of our `XCTestCase` instead of manually before and after every test.
 
+Move the creation of the `URLSessionHTTPClient` to a helper factory method so that as we implement the client, if we ever have to change its api's ( to inject some dependencies for example) - we won't break our current tests for which those changes are irrelevant. 
+
+Mike calls this a 'classic factory method' by which I suppose he means that unnecessary details are abstracted out away from the calling contexts where they're not needed?
+
+Mike says here our factory method could theoretically return our `HTTPClient` since our implementation is technically supposed to implement that protocol. We do not yet have this conformance at the current stage though so we will make a mental note to have the `makeSUT` return `HTTPClient` as soon as we implement the protocol (ie: return an abstraction rather than a concrete type so we can protect our tests from implementation details)
+
+
+
+
+
+
+
+
