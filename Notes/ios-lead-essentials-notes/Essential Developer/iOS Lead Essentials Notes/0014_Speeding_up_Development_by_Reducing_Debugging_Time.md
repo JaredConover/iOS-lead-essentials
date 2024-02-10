@@ -19,6 +19,9 @@ Mike calls this a 'classic factory method' by which I suppose he means that unne
 
 Mike says here our factory method could theoretically return our `HTTPClient` since our implementation is technically supposed to implement that protocol. We do not yet have this conformance at the current stage though so we will make a mental note to have the `makeSUT` return `HTTPClient` as soon as we implement the protocol (ie: return an abstraction rather than a concrete type so we can protect our tests from implementation details)
 
+We then extracted the memory leak test function to a new helper group / file since its now used in two different test classes. We didn't specify an access modifier on this function and so as a result, the default `internal` access is applied meaning that it is accessible within the module its defined in.
+
+![[Pasted image 20240203121105.png]]
 
 
 

@@ -1,0 +1,1 @@
+Maybe part of being a senior developer is being familiar enough with frameworks that your planning is actually reliable. This is in contrast to someone still building proficiency who's less sure how things will need to be implemented and needs to figure it out as they go to a greater extent.
