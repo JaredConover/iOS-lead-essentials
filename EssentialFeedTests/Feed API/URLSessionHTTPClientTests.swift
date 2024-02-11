@@ -49,54 +49,57 @@ final class URLSessionHTTPClientTests: XCTestCase {
     }
 
     func test_getFromURL_failsOnRequestError() {
-        let error = NSError(domain: "any error", code: 1)
+        let requestError = NSError(domain: "any error", code: 1)
+        let receivedError = resultErrorFor(data: nil, response: nil, error: requestError)
 
-        URLProtocolStub.stub(data: nil, response: nil, error: error)
-        let exp = expectation(description: "request loaded")
-
-        makeSUT().get(from: anyURL()) { result in
-            switch result {
-                case let .httpClientFailure(receivedError as NSError):
-                    XCTAssertEqual(error.domain, receivedError.domain)
-                    XCTAssertEqual(error.code, receivedError.code)
-                default:
-                    XCTFail("Expecte failure with error: \(error), but received result \(result)")
-            }
-            exp.fulfill()
-        }
-
-        wait(for: [exp], timeout: 1.0)
+        XCTAssertEqual(requestError.domain, (receivedError as? NSError)?.domain)
+        XCTAssertEqual(requestError.code, (receivedError as? NSError)?.code)
     }
 
     /// Technically an invalid case that should only result from programmer or framework error
+    /// We validate that with still receive a failure value to avoid crash
     func test_getFromURL_failsOnAllNilValues() {
-        URLProtocolStub.stub(data: nil, response: nil, error: nil)
-        let exp = expectation(description: "Wait for completion")
-
-        makeSUT().get(from: anyURL()) { result in
-            switch result {
-                case .httpClientFailure:
-                    break
-                default:
-                    XCTFail("Expected a failure but got \(result)")
-            }
-            exp.fulfill()
-        }
-
-        wait(for: [exp], timeout: 1.0)
+       XCTAssertNotNil(resultErrorFor(data: nil, response: nil, error: nil))
     }
+
     // MARK: Helpers
-
-    private func anyURL() -> URL {
-        URL(string: "http://any-url.com")!
-    }
 
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> URLSessionHTTPClient {
         let sut = URLSessionHTTPClient()
         trackForMemoryLeaks(sut, file: file, line: line)
         return sut
     }
-    
+
+    private func resultErrorFor(
+        data: Data?,
+        response: URLResponse?,
+        error: Error?,
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) -> Error? {
+        URLProtocolStub.stub(data: data, response: response, error: error)
+        let exp = expectation(description: "Wait for completion")
+        let sut = makeSUT(file:file, line: line)
+        var receivedError: Error?
+
+        sut.get(from: anyURL()) { result in
+            switch result {
+                case let .httpClientFailure(error):
+                    receivedError = error
+                default:
+                    XCTFail("Expected a failure, but got \(result)", file: file, line: line)
+            }
+            exp.fulfill()
+        }
+
+        wait(for: [exp], timeout: 1.0)
+        return receivedError
+    }
+
+    private func anyURL() -> URL {
+        URL(string: "http://any-url.com")!
+    }
+
     private class URLProtocolStub: URLProtocol {
         private static var stub: Stub?
 
