@@ -21,7 +21,11 @@ Mike says here our factory method could theoretically return our `HTTPClient` si
 
 We then extracted the memory leak test function to a new helper group / file since its now used in two different test classes. We didn't specify an access modifier on this function and so as a result, the default `internal` access is applied meaning that it is accessible within the module its defined in.
 
+Here is the table of possible cases:
+
 ![[Pasted image 20240203121105.png]]
+
+A lot of these are invalid and should not technically occur, but since we are partly using a 3rd party framework, it can be worth it to cover some of these cases. For example, if we update the framework we can be confident that our implementation didn't break because we have added coverage with these tests.
 
 
 
