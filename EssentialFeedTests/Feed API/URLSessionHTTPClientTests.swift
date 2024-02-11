@@ -30,6 +30,7 @@ final class URLSessionHTTPClientTests: XCTestCase {
     }
 
     func test_getFromURL_requestsFromProperURL() {
+        let url = anyURL()
         let exp = expectation(description: "wait for request")
         URLProtocolStub.observeRequests() { request in
             XCTAssertEqual(url, request.url)
@@ -37,7 +38,7 @@ final class URLSessionHTTPClientTests: XCTestCase {
             exp.fulfill()
         }
 
-        makeSUT().get(from: anyURL()) { _ in }
+        makeSUT().get(from: url) { _ in }
 
         wait(for: [exp], timeout: 1.0)
     }
