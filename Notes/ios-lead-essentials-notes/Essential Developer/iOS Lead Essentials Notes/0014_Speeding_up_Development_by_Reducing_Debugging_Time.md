@@ -27,7 +27,9 @@ Here is the table of possible cases:
 
 A lot of these are invalid and should not technically occur, but since we are partly using a 3rd party framework, it can be worth it to cover some of these cases. For example, if we update the framework we can be confident that our implementation didn't break because we have added coverage with these tests.
 
+Since our two error cases contained a similar algorithm of stubbing the response waiting for the completion and checking the result, we broke out this common procedure into a helper method for error cases that takes a value for data, urlresponse and error and returns a nullable error (if the request succeeds there will be no error).
 
+We use this helper method to build all the invalid cases into one test using dummy values for data, response and error. We are essentially validating that a request matching these cases will complete with an error. This also ensures we wont get a crash? 
 
 
 
