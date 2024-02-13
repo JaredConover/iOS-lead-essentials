@@ -31,6 +31,10 @@ Since our two error cases contained a similar algorithm of stubbing the response
 
 We use this helper method to build all the invalid cases into one test using dummy values for data, response and error. We are essentially validating that a request matching these cases will complete with an error. This also ensures we wont get a crash? 
 
+Finally, we create a test for the success case where we have data and and HTTPURLResponse. We added an else if after the error if in the implementation code that called the completion with the data and the response but still ended up with two failing tests:
+1) In our success test, our assertion that the response objects were equal failed. This was likely due to the fact that since HTTPURLResponse is a class, the evaluation of equivalence was based on the pointer address and not the class instances stored values. To fix this for the moment we instead independently compare the response.url and response.statusCode. Question: would this not be a problem if we were dealing with a struct? Is this a hole/ flaw in the Apple testing framework?
+2) One of our invalid test cases failed: data=nil, resp=HTTPURLResponse, error=nil. This was supposed to fail with an invalidRepresentation error but instead of receiving a nil data parameter in our implementation as we had stubbed the `URLProtocol` to do, the framework (URLSession? + URL loading system?) seems to have returned us a dataTask that instead contained an non-null value for data that contained 0 bytes. To fix this for now we are adding another condition to our implementations success to not only check if data is not nil but also if it is larger than 0 bytes. "Somehow the URLLoading System is replacing our nil data with an empty data of 0 bytes in the case where we returned a valid HTTPURLResponse"
+
 
 
 
