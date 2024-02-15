@@ -1,7 +1,7 @@
 import XCTest
 import EssentialFeed
 
-class URLSessionHTTPClient {
+class URLSessionHTTPClient: HTTPClient {
     let session: URLSession
 
     init(session: URLSession = .shared) {
@@ -10,7 +10,7 @@ class URLSessionHTTPClient {
 
     struct UnexpectedValuesRepresentation: Error {}
 
-    func get(from url: URL, completion: @escaping (HTTPClientResult) -> Void) {
+    func get(from url: URL, httpClientCompletion completion: @escaping (HTTPClientResult) -> Void) {
         self.session.dataTask(with: url) { data, response, error in
             if let error {
                 completion(.httpClientFailure(error))
@@ -104,7 +104,7 @@ final class URLSessionHTTPClientTests: XCTestCase {
     
     // MARK: Helpers
 
-    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> URLSessionHTTPClient {
+    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> HTTPClient {
         let sut = URLSessionHTTPClient()
         trackForMemoryLeaks(sut, file: file, line: line)
         return sut

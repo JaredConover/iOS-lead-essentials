@@ -40,6 +40,8 @@ So to recap roughly for this case: we added an interceptor to the URL loading sy
 The commit message they use when correcting this however refers to the URL Loading System so I'm not sure which component is actually responsible for interpreting nil as empty:
 [14] Delivers empty data and response on successful HTTP response with nil data since the URL Loading System completes the request with a non-nil empty data value (0 bytes) which is a valid case (eg: HTTP 204 no content response)
 
+Finally, after some refactoring, we make our `URLSessionHTTPClient` actually conform to our `HTTPClient` protocol, and we change our makeSUT() function return the abstraction instead of our concrete implementation. This means we should be able to change the specific implementation of the `HTTPClient` to use something other than `URLSession` and our tests should still be valid which is cool.
+
 
 
 
