@@ -1,30 +1,6 @@
 import XCTest
 import EssentialFeed
 
-class URLSessionHTTPClient: HTTPClient {
-    let session: URLSession
-
-    init(session: URLSession = .shared) {
-        self.session = session
-    }
-
-    struct UnexpectedValuesRepresentation: Error {}
-
-    func get(from url: URL, httpClientCompletion completion: @escaping (HTTPClientResult) -> Void) {
-        self.session.dataTask(with: url) { data, response, error in
-            if let error {
-                completion(.httpClientFailure(error))
-            }
-            else if let data, let response = response as? HTTPURLResponse {
-                completion(.httpClientSuccess(data, response))
-            }
-            else {
-                completion(.httpClientFailure(UnexpectedValuesRepresentation()))
-            }
-        }.resume()
-    }
-}
-
 final class URLSessionHTTPClientTests: XCTestCase {
 
     override func setUp() {
