@@ -35,6 +35,11 @@ Finally, we create a test for the success case where we have data and and HTTPUR
 1) In our success test, our assertion that the response objects were equal failed. This was likely due to the fact that since HTTPURLResponse is a class, the evaluation of equivalence was based on the pointer address and not the class instances stored values. To fix this for the moment we instead independently compare the response.url and response.statusCode. Question: would this not be a problem if we were dealing with a struct? Is this a hole/ flaw in the Apple testing framework?
 2) One of our invalid test cases failed: data=nil, resp=HTTPURLResponse, error=nil. This was supposed to fail with an invalidRepresentation error but instead of receiving a nil data parameter in our implementation as we had stubbed the `URLProtocol` to do, the framework (URLSession? + URL loading system?) seems to have returned us a dataTask that instead contained an non-null value for data that contained 0 bytes. To fix this for now we are adding another condition to our implementations success to not only check if data is not nil but also if it is larger than 0 bytes. "Somehow the URLLoading System is replacing our nil data with an empty data of 0 bytes in the case where we returned a valid HTTPURLResponse"
 
+So to recap roughly for this case: we added an interceptor to the URL loading system. We told it to return nil data when requested. This is basically like mocking a backend response of data: nil. However `URLSession` seems to have taken this nil data response and represented it as a non-nil empty data response (0 bytes). Essentially what we thought was an invalid case turns out to be a valid case because of how the `URLSession` API handles a valid response with nil data. So we will remove this test from the invalid scenarios and create an empty data scenario. Question: would this not also apply to the 'nonHttpresponse' data:nil case?
+
+The commit message they use when correcting this however refers to the URL Loading System so I'm not sure which component is actually responsible for interpreting nil as empty:
+[14] Delivers empty data and response on successful HTTP response with nil data since the URL Loading System completes the request with a non-nil empty data value (0 bytes) which is a valid case (eg: HTTP 204 no content response)
+
 
 
 
