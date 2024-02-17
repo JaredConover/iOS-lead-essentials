@@ -21,3 +21,7 @@ We setup a type of integration test that will call a real endpoint that returns 
 Instead of looping over the result items, we assert their equality to our expectation each on a separate line. This is because it will be clearer to see exactly where something failed and we currently have a small, fixed number of items to evaluate. If we had a large or unknown number of items to evaluate, we could add the failed index, etc in a loop over the items in order to have more context.
 
 APPLICATION: I can see this strategy of using a BE endpoint to test several components could be useful while not requiring all the overhead of an XCUITest. In the case of Poka however, instead of being a fully fixed backend endpoint, the data could remain fixed but the server logic could update as BE deploys new versions enabling us to catch errors faster. I should find a way to set up some smoke tests like this. 
+
+When do we want to run these e2e tests? Unlike the unit tests (while following TDD), we don't want to run them while we're developing because they take too long and we don't want to lose our flow. For these, it makes sense to run them as part of a CI process so that we test our changes before every merge to master. 
+
+We add a new CI scheme that runs both our test schemes.
