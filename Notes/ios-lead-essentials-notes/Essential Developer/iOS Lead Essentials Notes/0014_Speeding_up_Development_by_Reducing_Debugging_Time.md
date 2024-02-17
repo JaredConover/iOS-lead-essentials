@@ -44,7 +44,7 @@ Finally, after some refactoring, we make our `URLSessionHTTPClient` actually con
 
 To drive home the flexibility that this kind of abstraction enables, we can quickly demonstrate how our 'adapter class' as Caio calls it can easily be refactored into simply being an extension of URLSession, then, with a couple minor modifications to the makeSUT helper all the tests still function even though we have changed the underlying type that conforms to our protocol. This change is reverted since it could potentially cause a naming conflict if a get(from:) method is ever added to `URLSession` (which we do not control). 
 
-
+finished 02/15/2024
 
 
 
