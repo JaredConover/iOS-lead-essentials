@@ -24,4 +24,11 @@ APPLICATION: I can see this strategy of using a BE endpoint to test several comp
 
 When do we want to run these e2e tests? Unlike the unit tests (while following TDD), we don't want to run them while we're developing because they take too long and we don't want to lose our flow. For these, it makes sense to run them as part of a CI process so that we test our changes before every merge to master. 
 
-We add a new CI scheme that runs both our test schemes.
+We add a new CI scheme that runs both our test schemes. We also setup a pipeline using Travis which allows us to run our CIs test plan every time we push to git. 
+- we create a `.travivs.yml` file at the root of the project using the `touch` command
+- configure the file with the os, language, xcode version 
+- define the command to be executed:
+	- `xcodebuild clean build test -project EssentialFeed.xcodeproj -scheme "CI" CODE_SIGN_IDENTITY="" CODE_SIGNINING_REQUIRED=NO`
+It seems that github must pickup on this config and run the specified commands when we merge to main?
+
+So now every time we merge code to main, these tests will be executed, protecting the integrity of our project.
