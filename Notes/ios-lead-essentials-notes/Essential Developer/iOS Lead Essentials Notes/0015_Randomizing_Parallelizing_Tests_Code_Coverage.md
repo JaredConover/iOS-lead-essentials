@@ -32,3 +32,5 @@ We add a new CI scheme that runs both our test schemes. We also setup a pipeline
 It seems that github must pickup on this config and run the specified commands when we merge to main?
 
 So now every time we merge code to main, these tests will be executed, protecting the integrity of our project.
+
+Finished 02/18/2024

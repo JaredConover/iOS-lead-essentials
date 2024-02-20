@@ -20,6 +20,18 @@
             }
           },
           {
+            "id": "908b24cf181f29a3",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Essential Developer/iOS Lead Essentials Notes/0016_Identifying_Debugging_and_Solving_Data_Races_with_the_Thread_Sanitizer.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
             "id": "04f0a2e30a2147f4",
             "type": "leaf",
             "state": {
@@ -43,7 +55,8 @@
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -109,7 +122,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Essential Developer/iOS Lead Essentials Notes/0015_Randomizing_Parallelizing_Tests_Code_Coverage.md",
+                "file": "Essential Developer/iOS Lead Essentials Notes/0016_Identifying_Debugging_and_Solving_Data_Races_with_the_Thread_Sanitizer.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -126,7 +139,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Essential Developer/iOS Lead Essentials Notes/0015_Randomizing_Parallelizing_Tests_Code_Coverage.md",
+                "file": "Essential Developer/iOS Lead Essentials Notes/0016_Identifying_Debugging_and_Solving_Data_Races_with_the_Thread_Sanitizer.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -149,7 +162,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Essential Developer/iOS Lead Essentials Notes/0015_Randomizing_Parallelizing_Tests_Code_Coverage.md"
+                "file": "Essential Developer/iOS Lead Essentials Notes/0016_Identifying_Debugging_and_Solving_Data_Races_with_the_Thread_Sanitizer.md"
               }
             }
           }
@@ -170,18 +183,19 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "61142cb67ddac9bb",
+  "active": "908b24cf181f29a3",
   "lastOpenFiles": [
-    "Essential Developer/iOS Lead Essentials Notes/0013_Four_Approaches_to_Test_Drive_Network_Requests_End_to_End_Subclass.md",
-    "Essential Developer/iOS Lead Essentials Notes/0012_Conforming_to_Feature_Abstractions.md",
+    "Random thoughts.md",
+    "Essential Developer/iOS Lead Essentials Notes/0016_Identifying_Debugging_and_Solving_Data_Races_with_the_Thread_Sanitizer.md",
     "Essential Developer/iOS Lead Essentials Notes/0014_Speeding_up_Development_by_Reducing_Debugging_Time.md",
+    "Essential Developer/iOS Lead Essentials Notes/0013_Four_Approaches_to_Test_Drive_Network_Requests_End_to_End_Subclass.md",
     "Essential Developer/iOS Lead Essentials Notes/0015_Randomizing_Parallelizing_Tests_Code_Coverage.md",
+    "Essential Developer/iOS Lead Essentials Notes/0012_Conforming_to_Feature_Abstractions.md",
     "Essential Developer/iOS Lead Essentials Notes/images/Pasted image 20231225141236.png",
     "Essential Developer/iOS Lead Essentials Notes/images/Pasted image 20240216121234.png",
     "Essential Developer/iOS Lead Essentials Notes/images",
     "Essential Developer/iOS Lead Essentials Notes/images/Pasted image 20240203121105.png",
     "Nav optimizations to figure out.md",
-    "Random thoughts.md",
     "iOS Learning/iOS Learning.md",
     "iOS Learning/iOS project overview.md",
     "Self Eval.md",
