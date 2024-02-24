@@ -41,3 +41,10 @@ These all technically work but they solve the issue from the clients point of vi
 To make this adjustment, we move the call to our injected requestObserver() method from the canInit (which is called before the loading) to the startLoading method. We execute it at the beginning of start loading, call `client?.urlProtocolDidFinishLoading()` and return with the void result of our observation closure. This way, the request will complete inside the scope of the test. This also means however that any value stubbing will not occur so any tests relying on that will fail if they also observe the request. Is this a bad thing? Will we ever need to both observe the request and stub the data, response or error?
 
 In this case we were able to avoid handling this on the client's side since we control our `URLProtocolStub`, but if this wasn't the case, we would've been force to handle it in the client's behaviour.
+
+The thread sanitizer helped us detect this issue but it adds a tremendous amount of overhead and can slow down the cpu up to 20x and increase memory usage by 5-10x according to Apple docs. So we don't want this to always be activated on our unit tests but we will activate for now on our CI. It's important to make sure that CI costs are not ballooning due to this however.
+
+And to reiterate the main theme of this lesson:
+Remember to make sure all operations finish before a test returns, otherwise we can end up with extremely hard to debug issues such as crashes or failures that happen during the execution of an unrelated test.
+
+finished 02/24/2024 
