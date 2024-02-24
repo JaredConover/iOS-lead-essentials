@@ -34,3 +34,36 @@ It seems that github must pickup on this config and run the specified commands w
 So now every time we merge code to main, these tests will be executed, protecting the integrity of our project.
 
 Finished 02/18/2024
+
+```
+name: Run Scheme on Push
+
+name: Run Scheme on Push
+
+on:
+        push:
+                branches:
+                        - main
+
+jobs:
+        build:
+                name: Run Scheme
+                runs-on: macos-latest
+
+                steps:
+                        - name: Checkout code
+                          uses: actions/checkout@v2
+
+                        - name: Set up Xcode
+                          uses: actions/setup-xcode@v2
+                          with:
+                                xcode-version: '15.x'
+
+                        - name: Build and test
+                          run: |
+                                xcodebuild \
+                                        -project EssentialFeed.xcodeproj \
+                                        -scheme CI \
+                                        -destination 'platform=macOS, arch=x86_64' \
+                                        clean build test
+```

@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Essential Developer/iOS Lead Essentials Notes/0016_Identifying_Debugging_and_Solving_Data_Races_with_the_Thread_Sanitizer.md",
+                "file": "Essential Developer/iOS Lead Essentials Notes/0015_Randomizing_Parallelizing_Tests_Code_Coverage.md",
                 "mode": "source",
                 "source": false
               }
@@ -107,7 +107,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Essential Developer/iOS Lead Essentials Notes/0016_Identifying_Debugging_and_Solving_Data_Races_with_the_Thread_Sanitizer.md",
+                "file": "Essential Developer/iOS Lead Essentials Notes/0015_Randomizing_Parallelizing_Tests_Code_Coverage.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -124,7 +124,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Essential Developer/iOS Lead Essentials Notes/0016_Identifying_Debugging_and_Solving_Data_Races_with_the_Thread_Sanitizer.md",
+                "file": "Essential Developer/iOS Lead Essentials Notes/0015_Randomizing_Parallelizing_Tests_Code_Coverage.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -147,7 +147,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Essential Developer/iOS Lead Essentials Notes/0016_Identifying_Debugging_and_Solving_Data_Races_with_the_Thread_Sanitizer.md"
+                "file": "Essential Developer/iOS Lead Essentials Notes/0015_Randomizing_Parallelizing_Tests_Code_Coverage.md"
               }
             }
           }
@@ -170,9 +170,9 @@
   },
   "active": "61142cb67ddac9bb",
   "lastOpenFiles": [
+    "Essential Developer/iOS Lead Essentials Notes/0016_Identifying_Debugging_and_Solving_Data_Races_with_the_Thread_Sanitizer.md",
     "Essential Developer/iOS Lead Essentials Notes/0015_Randomizing_Parallelizing_Tests_Code_Coverage.md",
     "Nav optimizations to figure out.md",
-    "Essential Developer/iOS Lead Essentials Notes/0016_Identifying_Debugging_and_Solving_Data_Races_with_the_Thread_Sanitizer.md",
     "iOS Learning/iOS project overview.md",
     "Eddie 1-1.md",
     "Essential Developer/iOS Lead Essentials Notes/0012_Conforming_to_Feature_Abstractions.md",
